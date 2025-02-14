@@ -30,6 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  dio: ^5.8.0+1
+  dartz: ^0.10.1
+  bloc: ^9.0.0
+  flutter_bloc: ^9.0.0
   cached_network_image:
   carousel_slider_plus:
   flutter_screenutil:
