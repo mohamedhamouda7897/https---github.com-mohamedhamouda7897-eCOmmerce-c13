@@ -39,7 +39,8 @@ dependencies:
   flutter_svg:
   flutter_native_splash:
   readmore:
-  smooth_page_indicator:  
+  smooth_page_indicator:
+  dio: ^5.8.0+1
 
 
   # The following adds the Cupertino Icons font to your application.
