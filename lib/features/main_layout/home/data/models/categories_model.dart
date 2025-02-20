@@ -1,4 +1,6 @@
-class CategoriesModel {
+import 'package:equatable/equatable.dart';
+
+class CategoriesModel extends Equatable {
   int? results;
   Metadata? metadata;
   List<Data>? data;
@@ -17,9 +19,13 @@ class CategoriesModel {
       });
     }
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [results, metadata, data];
 }
 
-class Metadata {
+class Metadata extends Equatable {
   int? currentPage;
   int? numberOfPages;
   int? limit;
@@ -31,9 +37,13 @@ class Metadata {
     numberOfPages = json['numberOfPages'];
     limit = json['limit'];
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [currentPage, numberOfPages, limit];
 }
 
-class Data {
+class Data extends Equatable {
   String? sId;
   String? name;
   String? slug;
@@ -57,4 +67,8 @@ class Data {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [sId, name, slug, image, createdAt, updatedAt];
 }

@@ -48,85 +48,87 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              CustomAdsWidget(
-                adsImages: adsImages,
-                currentIndex: _currentIndex,
-                timer: _timer,
-              ),
-              Column(
-                children: [
-                  CustomSectionBar(
-                      sectionNname: 'Categories', function: () {}),
-                  SizedBox(
-                    height: 270.h,
-                    child: GridView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return CustomCategoryWidget(
-                          image: state.model?.data?[index].image ?? "",
-                          title: state.model?.data?[index].name ?? "",
-                        );
-                      },
-                      itemCount: state.model?.results??0,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-
+    return BlocProvider(
+      create: (context) => getIt<HomeBloc>()..add(GetCategories()),
+      child: BlocConsumer<HomeBloc, HomeState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                CustomAdsWidget(
+                  adsImages: adsImages,
+                  currentIndex: _currentIndex,
+                  timer: _timer,
+                ),
+                Column(
+                  children: [
+                    CustomSectionBar(
+                        sectionNname: 'Categories', function: () {}),
+                    SizedBox(
+                      height: 270.h,
+                      child: GridView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return CustomCategoryWidget(
+                            image: state.model?.data?[index].image ?? "",
+                            title: state.model?.data?[index].name ?? "",
+                          );
+                        },
+                        itemCount: state.model?.results ?? 0,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
                       ),
                     ),
-                  ),
-                  // SizedBox(height: 12.h),
-                  // CustomSectionBar(sectionNname: 'Brands', function: () {}),
-                  // SizedBox(
-                  //   height: 270.h,
-                  //   child: GridView.builder(
-                  //     scrollDirection: Axis.horizontal,
-                  //     itemBuilder: (context, index) {
-                  //       return const CustomBrandWidget();
-                  //     },
-                  //     itemCount: 20,
-                  //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  //       crossAxisCount: 2,
-                  //     ),
-                  //   ),
-                  // ),
-                  // CustomSectionBar(
-                  //   sectionNname: 'Most Selling Products',
-                  //   function: () {},
-                  // ),
-                  // SizedBox(
-                  //   child: SizedBox(
-                  //     height: 360.h,
-                  //     child: ListView.builder(
-                  //       scrollDirection: Axis.horizontal,
-                  //       itemBuilder: (context, index) {
-                  //         return const ProductCard(
-                  //           title: "Nike Air Jordon",
-                  //           description:
-                  //               "Nike is a multinational corporation that designs, develops, and sells athletic footwear ,apparel, and accessories",
-                  //           rating: 4.5,
-                  //           price: 1100,
-                  //           priceBeforeDiscound: 1500,
-                  //           image: ImageAssets.categoryHomeImage,
-                  //         );
-                  //       },
-                  //       itemCount: 20,
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(height: 12.h),
-                ],
-              )
-            ],
-          ),
-        );
-      },
+                    // SizedBox(height: 12.h),
+                    // CustomSectionBar(sectionNname: 'Brands', function: () {}),
+                    // SizedBox(
+                    //   height: 270.h,
+                    //   child: GridView.builder(
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemBuilder: (context, index) {
+                    //       return const CustomBrandWidget();
+                    //     },
+                    //     itemCount: 20,
+                    //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    //       crossAxisCount: 2,
+                    //     ),
+                    //   ),
+                    // ),
+                    // CustomSectionBar(
+                    //   sectionNname: 'Most Selling Products',
+                    //   function: () {},
+                    // ),
+                    // SizedBox(
+                    //   child: SizedBox(
+                    //     height: 360.h,
+                    //     child: ListView.builder(
+                    //       scrollDirection: Axis.horizontal,
+                    //       itemBuilder: (context, index) {
+                    //         return const ProductCard(
+                    //           title: "Nike Air Jordon",
+                    //           description:
+                    //               "Nike is a multinational corporation that designs, develops, and sells athletic footwear ,apparel, and accessories",
+                    //           rating: 4.5,
+                    //           price: 1100,
+                    //           priceBeforeDiscound: 1500,
+                    //           image: ImageAssets.categoryHomeImage,
+                    //         );
+                    //       },
+                    //       itemCount: 20,
+                    //     ),
+                    //   ),
+                    // ),
+                    SizedBox(height: 12.h),
+                  ],
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -19,6 +19,18 @@ import 'features/auth/domain/repository/auth_repo.dart' as _i38;
 import 'features/auth/domain/usecases/login_use_case.dart' as _i851;
 import 'features/auth/domain/usecases/sign_up_use_case.dart' as _i477;
 import 'features/auth/presentation/bloc/auth_bloc.dart' as _i363;
+import 'features/main_layout/categories/data/datasources/remote/categories_ds.dart'
+    as _i424;
+import 'features/main_layout/categories/data/datasources/remote/categories_ds_impl.dart'
+    as _i687;
+import 'features/main_layout/categories/data/repository/categories_repo_impl.dart'
+    as _i268;
+import 'features/main_layout/categories/domain/repository/categories_repo.dart'
+    as _i805;
+import 'features/main_layout/categories/domain/usecases/get_sub_category_use_case.dart'
+    as _i165;
+import 'features/main_layout/categories/presentation/bloc/categories_bloc.dart'
+    as _i943;
 import 'features/main_layout/home/data/datasources/remote/home_remote_ds.dart'
     as _i150;
 import 'features/main_layout/home/data/datasources/remote/home_remote_ds_impl.dart'
@@ -41,12 +53,18 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.lazySingleton<_i237.ApiManager>(() => _i237.ApiManager());
+    gh.factory<_i424.CategoriesDS>(
+        () => _i687.CategoriesDSImpl(gh<_i237.ApiManager>()));
     gh.factory<_i150.HomeRemoteDS>(
         () => _i373.HomeRemoteDSImpl(gh<_i237.ApiManager>()));
+    gh.factory<_i805.CategoriesRepo>(
+        () => _i268.CategoriesRepoImpl(gh<_i424.CategoriesDS>()));
     gh.factory<_i975.AuthDS>(() => _i502.AuthDSImpl(gh<_i237.ApiManager>()));
     gh.factory<_i428.HomeRepo>(
         () => _i346.HomeRepoImpl(gh<_i150.HomeRemoteDS>()));
     gh.factory<_i38.AuthRepo>(() => _i674.AuthRepoImpl(gh<_i975.AuthDS>()));
+    gh.factory<_i165.GetSubCategoriesUceCase>(
+        () => _i165.GetSubCategoriesUceCase(gh<_i805.CategoriesRepo>()));
     gh.factory<_i716.GetCategoriesUseCase>(
         () => _i716.GetCategoriesUseCase(gh<_i428.HomeRepo>()));
     gh.factory<_i851.LoginUseCase>(
@@ -56,6 +74,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i363.AuthBloc>(() => _i363.AuthBloc(
           gh<_i477.SignUpUseCase>(),
           gh<_i851.LoginUseCase>(),
+        ));
+    gh.factory<_i943.CategoriesBloc>(() => _i943.CategoriesBloc(
+          gh<_i716.GetCategoriesUseCase>(),
+          gh<_i165.GetSubCategoriesUceCase>(),
         ));
     gh.factory<_i123.HomeBloc>(
         () => _i123.HomeBloc(gh<_i716.GetCategoriesUseCase>()));

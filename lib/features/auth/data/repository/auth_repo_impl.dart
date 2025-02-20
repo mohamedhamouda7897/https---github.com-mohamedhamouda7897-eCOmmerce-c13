@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce_c13_friday/core/failures/failures.dart';
 import 'package:ecommerce_c13_friday/core/failures/remote_failures.dart';
+import 'package:ecommerce_c13_friday/core/resources/cache_helper.dart';
 import 'package:ecommerce_c13_friday/features/auth/data/data_sources/remote/auth_ds.dart';
 import 'package:ecommerce_c13_friday/features/auth/data/models/auth_model.dart';
 import 'package:ecommerce_c13_friday/features/auth/data/models/singup_request_model.dart';
 import 'package:ecommerce_c13_friday/features/auth/domain/repository/auth_repo.dart';
 import 'package:injectable/injectable.dart';
 
-
-@Injectable(as:AuthRepo )
+@Injectable(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
   AuthDS authDS;
 
@@ -31,6 +31,8 @@ class AuthRepoImpl implements AuthRepo {
       String email, String password) async {
     try {
       var result = await authDS.login(email, password);
+      var prefs = await SharedPreferencesService.getInstance();
+      await prefs.set<String>('token', result.token ?? ""); // String
       return Right(result);
     } catch (e) {
       return Left(RemoteFailures(e.toString()));
