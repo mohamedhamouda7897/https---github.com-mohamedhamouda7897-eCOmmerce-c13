@@ -2,8 +2,9 @@ import 'package:ecommerce_c13_friday/core/resources/assets_manager.dart';
 import 'package:ecommerce_c13_friday/core/resources/color_manager.dart';
 import 'package:ecommerce_c13_friday/core/resources/styles_manager.dart';
 import 'package:ecommerce_c13_friday/core/resources/values_manager.dart';
-import 'package:ecommerce_c13_friday/features/cart/widgets/cart_item_widget.dart';
-import 'package:ecommerce_c13_friday/features/cart/widgets/total_price_and_checkout_botton.dart';
+import 'package:ecommerce_c13_friday/features/cart/presentation/widgets/cart_item_widget.dart';
+import 'package:ecommerce_c13_friday/features/cart/presentation/widgets/total_price_and_checkout_botton.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

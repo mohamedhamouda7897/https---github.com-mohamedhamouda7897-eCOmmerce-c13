@@ -10,16 +10,6 @@ class AuthModel {
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     token = json['token'];
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
-    }
-    data['token'] = this.token;
-    return data;
-  }
 }
 
 class User {
@@ -33,13 +23,5 @@ class User {
     name = json['name'];
     email = json['email'];
     role = json['role'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['role'] = this.role;
-    return data;
   }
 }
