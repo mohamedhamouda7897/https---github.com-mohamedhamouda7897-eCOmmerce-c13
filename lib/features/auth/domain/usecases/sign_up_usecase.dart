@@ -3,7 +3,9 @@ import 'package:ecommerce_c13_friday/core/failuers/failuers.dart';
 import 'package:ecommerce_c13_friday/features/auth/data/models/auth_model.dart';
 import 'package:ecommerce_c13_friday/features/auth/data/models/signup_request_model.dart';
 import 'package:ecommerce_c13_friday/features/auth/domain/repository/auth_repo.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class SignUpUseCase {
   AuthRepo authRepo;
 

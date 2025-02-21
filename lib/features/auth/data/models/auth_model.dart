@@ -1,4 +1,6 @@
-class AuthModel {
+import 'package:equatable/equatable.dart';
+
+class AuthModel extends Equatable {
   String? message;
   User? user;
   String? token;
@@ -20,6 +22,10 @@ class AuthModel {
     data['token'] = this.token;
     return data;
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [token, user, message];
 }
 
 class User {

@@ -9,14 +9,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
- final bool? automaticallyImplyLeading;
-  const HomeScreenAppBar({super.key, this.automaticallyImplyLeading});
+  final bool? automaticallyImplyLeading;
+
+  final int numOfProd;
+
+  const HomeScreenAppBar(
+      {super.key, required this.numOfProd, this.automaticallyImplyLeading});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       surfaceTintColor: Colors.white,
-      automaticallyImplyLeading: automaticallyImplyLeading??false,
+      automaticallyImplyLeading: automaticallyImplyLeading ?? false,
       title: SvgPicture.asset(
         SvgAssets.routeLogo,
         height: 25.h,
@@ -69,13 +73,15 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                 ),
-                IconButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, Routes.cartRoute),
-                    icon: ImageIcon(
-                      AssetImage(IconsAssets.icCart),
-                      color: ColorManager.primary,
-                    ))
+                Badge(
+                  label: Text("${numOfProd ?? 0}"),
+                  padding: EdgeInsets.all(4),
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, Routes.cartRoute),
+                      icon: Icon(Icons.shopping_cart_outlined)),
+                )
               ],
             ),
           )),

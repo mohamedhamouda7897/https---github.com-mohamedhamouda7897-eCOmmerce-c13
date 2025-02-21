@@ -7,3 +7,10 @@ class SignUpEvent extends AuthEvent {
 
   SignUpEvent(this.model);
 }
+
+class OnLoginEvent extends AuthEvent {
+  String email;
+  String password;
+
+  OnLoginEvent(this.email, this.password);
+}

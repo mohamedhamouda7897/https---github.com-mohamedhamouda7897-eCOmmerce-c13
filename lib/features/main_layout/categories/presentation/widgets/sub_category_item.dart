@@ -8,6 +8,7 @@ class SubCategoryItem extends StatelessWidget {
   final String title;
   final String image;
   final Function navigation;
+
   const SubCategoryItem(this.title, this.image, this.navigation, {super.key});
 
   @override
@@ -35,6 +36,8 @@ class SubCategoryItem extends StatelessWidget {
           ),
           Text(
             title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: getRegularStyle(color: ColorManager.primary),
           )
         ],

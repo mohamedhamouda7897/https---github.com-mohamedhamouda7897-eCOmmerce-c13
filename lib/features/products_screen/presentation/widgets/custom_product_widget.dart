@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_c13_friday/core/resources/color_manager.dart';
 import 'package:ecommerce_c13_friday/core/resources/styles_manager.dart';
 import 'package:ecommerce_c13_friday/core/routes_manager/routes.dart';
 import 'package:ecommerce_c13_friday/core/widget/heart_button.dart';
+import 'package:ecommerce_c13_friday/features/products_screen/presentation/bloc/product_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProductWidget extends StatelessWidget {
@@ -10,6 +13,7 @@ class CustomProductWidget extends StatelessWidget {
   final double height;
   final String image;
   final String title;
+  final String id;
   final String description;
   final double price;
   final double discountPercentage;
@@ -21,6 +25,7 @@ class CustomProductWidget extends StatelessWidget {
     required this.height,
     required this.image,
     required this.title,
+    required this.id,
     required this.description,
     required this.price,
     required this.discountPercentage,
@@ -69,28 +74,29 @@ class CustomProductWidget extends StatelessWidget {
                 children: [
                   // Not working with the lastest flutter version
 
-                  // CachedNetworkImage(
-                  //   imageUrl: image,
-                  //   height: height * 0.15,
-                  //   width: double.infinity,
-                  //   fit: BoxFit.cover,
-                  //   placeholder: (context, url) =>
-                  //       const Center(child: CircularProgressIndicator()),
-                  //   errorWidget: (context, url, error) => const Icon(Icons.error),
-                  // ),
+                  CachedNetworkImage(
+                    imageUrl: image,
+                    height: height * 0.15,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                   // Image.network(
                   //   image,
                   //   fit: BoxFit.cover,
                   // ),
-                  ClipRRect(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(14.r)),
-                    child: Image.asset(
-                      image,
-                      fit: BoxFit.cover,
-                      width: width,
-                    ),
-                  ),
+                  // ClipRRect(
+                  //   borderRadius:
+                  //       BorderRadius.vertical(top: Radius.circular(14.r)),
+                  //   child: Image.asset(
+                  //     image,
+                  //     fit: BoxFit.cover,
+                  //     width: width,
+                  //   ),
+                  // ),
                   Positioned(
                       top: height * 0.01,
                       right: width * 0.02,
@@ -167,7 +173,10 @@ class CustomProductWidget extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              BlocProvider.of<ProductBloc>(context)
+                                  .add(AddToCartEvent(prodId: id));
+                            },
                             child: Container(
                               height: height * 0.036,
                               width: width * 0.08,

@@ -34,6 +34,12 @@ dependencies:
   dartz: ^0.10.1
   bloc: ^9.0.0
   flutter_bloc: ^9.0.0
+  injectable: ^2.5.0
+  pretty_dio_logger: ^1.4.0
+  shared_preferences: ^2.5.2
+  freezed: ^2.5.7
+  equatable: ^2.0.7
+  get_it: ^8.0.3
   cached_network_image:
   carousel_slider_plus:
   flutter_screenutil:
@@ -53,6 +59,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  injectable_generator: ^2.6.2
+  build_runner: ^2.4.11
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -4,7 +4,7 @@ import 'package:ecommerce_c13_friday/core/resources/styles_manager.dart';
 import 'package:ecommerce_c13_friday/core/resources/values_manager.dart';
 import 'package:ecommerce_c13_friday/core/routes_manager/routes.dart';
 import 'package:ecommerce_c13_friday/core/widget/product_counter.dart';
-import 'package:ecommerce_c13_friday/features/cart/widgets/color_and_size_cart_item.dart';
+import 'package:ecommerce_c13_friday/features/cart/presentation/widgets/color_and_size_cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -54,7 +54,7 @@ class CartItemWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.r),
               border: Border.all(color: ColorManager.primary.withOpacity(0.3)),
             ),
-            child: Image.asset(
+            child: Image.network(
               imagePath,
               fit: BoxFit.cover,
               height: isPortrait ? height * 0.142 : height * 0.23,

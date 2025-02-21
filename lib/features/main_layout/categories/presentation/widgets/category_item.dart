@@ -18,7 +18,7 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // Handle item click by calling onItemClick callback
     return InkWell(
-      onTap: () => onItemClick(index),
+      onTap: () => onItemClick(index,context),
       child: Container(
         // Set background color based on selection
         color: isSelected?ColorManager.white:Colors.transparent,

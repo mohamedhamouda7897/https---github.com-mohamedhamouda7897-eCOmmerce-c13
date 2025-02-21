@@ -1,8 +1,11 @@
 import 'package:ecommerce_c13_friday/core/api/api_manager.dart';
+import 'package:ecommerce_c13_friday/core/routes_manager/routes.dart';
 import 'package:ecommerce_c13_friday/core/widget/custom_elevated_button.dart';
+import 'package:ecommerce_c13_friday/di.dart';
 import 'package:ecommerce_c13_friday/features/auth/data/data_sources/remote/auth_remote_ds_impl.dart';
 import 'package:ecommerce_c13_friday/features/auth/data/models/signup_request_model.dart';
 import 'package:ecommerce_c13_friday/features/auth/data/repository/auth_repo_impl.dart';
+import 'package:ecommerce_c13_friday/features/auth/domain/usecases/login_usecase.dart';
 import 'package:ecommerce_c13_friday/features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:ecommerce_c13_friday/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
@@ -28,13 +31,41 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthBloc(SignUpUseCase(
-        AuthRepoImpl(
-          AuthRemoteDSImpl(APIManager()),
-        ),
-      )),
+      create: (context) => getIt<AuthBloc>(),
       child: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state.signUpRequestState == RequestState.loading) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Center(child: CircularProgressIndicator()),
+                backgroundColor: Colors.transparent,
+              ),
+            );
+          } else if (state.signUpRequestState == RequestState.error) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text("Error"),
+                content: Text(state.failures?.message ?? ""),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      child: Text("Ok"))
+                ],
+              ),
+            );
+          } else if (state.signUpRequestState == RequestState.success) {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.mainRoute,
+              (route) => false,
+            );
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             backgroundColor: ColorManager.primary,
@@ -110,12 +141,11 @@ class SignUpScreen extends StatelessWidget {
                                 fontSize: AppSize.s20),
                             onTap: () {
                               SignUpRequestModel model = SignUpRequestModel(
-                                email: emailController.text,
-                                name: nameController.text,
-                                password: passwordController.text,
-                                rePassword: passwordController.text,
-                                phone: mobileController.text
-                              );
+                                  email: emailController.text,
+                                  name: nameController.text,
+                                  password: passwordController.text,
+                                  rePassword: passwordController.text,
+                                  phone: mobileController.text);
                               BlocProvider.of<AuthBloc>(context)
                                   .add(SignUpEvent(model));
                             },
