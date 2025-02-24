@@ -3,4 +3,5 @@ import 'package:ecommerce_c13_friday/features/auth/data/models/signup_requestMod
 
 abstract class AuthRemoteDS {
   Future<AuthModel> signUp(SignUpRequestModel request);
+  Future<AuthModel> login(String email,String password);
 }
